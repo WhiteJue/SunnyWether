@@ -36,7 +36,7 @@ class PlaceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(activity != null && binding != null) {
+        if(activity != null) {
             val layoutManager = LinearLayoutManager(activity)
             layoutManager.orientation = LinearLayoutManager.VERTICAL
             //adapter绑定ViewModel中的数据
