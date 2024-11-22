@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethod
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -68,7 +69,10 @@ class WeatherActivity : AppCompatActivity() {
         binding.swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
         binding.swipeRefreshLayout.setOnRefreshListener { refreshWeather() }
 
-        binding.realtime.navButton.setOnClickListener { binding.drawerLayout.openDrawer(GravityCompat.START) }
+        binding.realtime.navButton.setOnClickListener {
+            binding.placeFragment.findViewById<EditText>(R.id.searchPlaceEdit).text.clear()
+            binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
         binding.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
 
@@ -100,6 +104,7 @@ class WeatherActivity : AppCompatActivity() {
         binding.realtime.placeName.text = viewModel.placeName
         binding.realtime.currentTemp.text = "${weather.realtime.temperature.toInt()} °C"
         binding.realtime.currentAQI.text = "空气指数 ${weather.realtime.airQuality.aqi.chn.toInt()}"
+        binding.realtime.currentHumidity.text = "相对湿度 ${(weather.realtime.humidity * 100).toInt()}%"
         getSky(weather.realtime.skycon).also {
             binding.realtime.currentSky.text = it.info
             binding.weatherLayout.setBackgroundResource(it.bg)
