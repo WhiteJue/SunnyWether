@@ -20,7 +20,7 @@ object SunnyWeatherNetwork {
     suspend fun getRealtimeWeather(lng: String, lat: String) = weatherService.getRealtimeWeather(lng, lat).await()
 
     //根据经纬度查询日常天气
-    suspend fun getDailyWeather(lng: String, lat: String) = weatherService.getDailyWeather(lng, lat).await()
+    suspend fun getDailyWeather(lng: String, lat: String, daySteps: Int) = weatherService.getDailyWeather(lng, lat, daySteps).await()
 
     //扩展方法：从Call<T>获取结果（await），需要从协程调用
     private suspend fun <T> Call<T>.await(): T {

@@ -1,5 +1,7 @@
 package com.sunnywether.android.logic.network
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -9,6 +11,11 @@ object ServiceCreator {
     //使用JSON
     private val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
+        .client(OkHttpClient().newBuilder().addInterceptor(
+            HttpLoggingInterceptor().apply {
+                setLevel(HttpLoggingInterceptor.Level.BODY)
+            }
+        ).build())
         .build()
 
     //简化Service获取的方法

@@ -105,6 +105,8 @@ class WeatherActivity : AppCompatActivity() {
         binding.realtime.currentTemp.text = "${weather.realtime.temperature.toInt()} °C"
         binding.realtime.currentAQI.text = "空气指数 ${weather.realtime.airQuality.aqi.chn.toInt()}"
         binding.realtime.currentHumidity.text = "相对湿度 ${(weather.realtime.humidity * 100).toInt()}%"
+        val wind = weather.realtime.wind
+        binding.realtime.currentWind.text = "风速 ${wind.speedDesc() ?: ""}（${wind.speedGrade()}级）"
         getSky(weather.realtime.skycon).also {
             binding.realtime.currentSky.text = it.info
             binding.weatherLayout.setBackgroundResource(it.bg)

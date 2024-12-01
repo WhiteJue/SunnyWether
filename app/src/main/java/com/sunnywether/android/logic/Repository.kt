@@ -32,7 +32,7 @@ object Repository {
         emit(result)
     }
 
-    fun getWeather(lng: String, lat: String): LiveData<Result<Weather>> = liveData(Dispatchers.IO) {
+    fun getWeather(lng: String, lat: String, daySteps: Int): LiveData<Result<Weather>> = liveData(Dispatchers.IO) {
         val result = try {
             //创建协程作用域以便使用async{}
             coroutineScope {
@@ -40,7 +40,7 @@ object Repository {
                     SunnyWeatherNetwork.getRealtimeWeather(lng, lat)
                 }
                 val deferredDaily = async {
-                    SunnyWeatherNetwork.getDailyWeather(lng, lat)
+                    SunnyWeatherNetwork.getDailyWeather(lng, lat, daySteps)
                 }
                 val realtimeResponse = deferredRealtime.await()
                 val dailyResponse = deferredDaily.await()

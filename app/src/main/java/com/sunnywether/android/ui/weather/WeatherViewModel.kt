@@ -9,6 +9,9 @@ import com.sunnywether.android.logic.model.Location
 import com.sunnywether.android.logic.model.Weather
 
 class WeatherViewModel : ViewModel() {
+    companion object {
+        const val DEFAULT_DAY_STEPS = 3
+    }
     private val locationLiveData = MutableLiveData<Location>()
 
     var locationLng : String = ""
@@ -16,7 +19,7 @@ class WeatherViewModel : ViewModel() {
     var placeName : String = ""
 
     val weatherLiveData : LiveData<Result<Weather>> = locationLiveData.switchMap { location ->
-        Repository.getWeather(location.lng, location.lat)
+        Repository.getWeather(location.lng, location.lat, DEFAULT_DAY_STEPS)
     }
 
     fun searchWeather(location: Location) {
